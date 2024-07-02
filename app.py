@@ -18,7 +18,7 @@ if filtro_vendedor:
     df = df[df['Vendedor'].isin(filtro_vendedor)]
 #print(df)
 
-aba1, aba2, aba3, aba4 = st.tabs(['Dataset', 'Receita', 'Vendedores','Mini-Graficos'])
+aba1, aba2, aba3, aba4,aba5 = st.tabs(['Dataset', 'Receita', 'Vendedores','Mini-Graficos','Outros'])
 with aba1:
     st.dataframe(df)
 with aba2:
@@ -38,7 +38,7 @@ with aba3:
     with coluna2:
         st.plotly_chart(grafico_vendas_vendedores)
 with aba4:
-    coluna1,coluna2,coluna3 = st.columns(3)
+    coluna1,coluna2 = st.columns(2)
     with coluna1:
         
         st.dataframe(
@@ -52,7 +52,7 @@ with aba4:
                     ),
                     "url": st.column_config.LinkColumn("App URL"),
                     "views_history": st.column_config.LineChartColumn(
-                        "Views (past 30 days)", y_min=0, y_max=5000
+                        "Views (past 30 days)", y_min=0, y_max=5000,width="medium"
                     ),
                 },
                 hide_index=True,
@@ -62,7 +62,7 @@ with aba4:
 
         favorite_command = edited_df.loc[edited_df["rating"].idxmax()]["command"]
         st.markdown(f"Your favorite command is **{favorite_command}** 🎈")
-    with coluna3:
+    with aba5:
       st.data_editor(
         data_df,
     column_config={
