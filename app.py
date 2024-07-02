@@ -1,6 +1,6 @@
 import streamlit as st
 import plotly.express as px
-from dataset import df,df1,df2
+from dataset import df,df1,df2,data_df
 from utils import format_number
 from graficos import grafico_map_estado, grafico_rec_mensal, grafico_rec_estado, grafico_rec_categoria, grafico_rec_vendedores, grafico_vendas_vendedores
 
@@ -38,7 +38,7 @@ with aba3:
     with coluna2:
         st.plotly_chart(grafico_vendas_vendedores)
 with aba4:
-    coluna1,coluna2 = st.columns(2)
+    coluna1,coluna2,coluna3 = st.columns(3)
     with coluna1:
         
         st.dataframe(
@@ -62,4 +62,17 @@ with aba4:
 
         favorite_command = edited_df.loc[edited_df["rating"].idxmax()]["command"]
         st.markdown(f"Your favorite command is **{favorite_command}** 🎈")
+    with coluna3:
+      st.data_editor(
+        data_df,
+    column_config={
+        "sales": st.column_config.BarChartColumn(
+            "Sales (last 6 months)",
+            help="The sales volume in the last 6 months",
+            y_min=0,
+            y_max=100,
+        ),
+    },
+    hide_index=True,
+)  
     
