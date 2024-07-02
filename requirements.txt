@@ -64,4 +64,5 @@ python-lsp-server
 python-slugify
 python-snappy
 pytoolconfig
+random
 streamlit
