@@ -1,6 +1,6 @@
 import streamlit as st
 import plotly.express as px
-from dataset import df
+from dataset import df,df1
 from utils import format_number
 from graficos import grafico_map_estado, grafico_rec_mensal, grafico_rec_estado, grafico_rec_categoria, grafico_rec_vendedores, grafico_vendas_vendedores
 
@@ -18,7 +18,7 @@ if filtro_vendedor:
     df = df[df['Vendedor'].isin(filtro_vendedor)]
 #print(df)
 
-aba1, aba2, aba3 = st.tabs(['Dataset', 'Receita', 'Vendedores'])
+aba1, aba2, aba3, aba4 = st.tabs(['Dataset', 'Receita', 'Vendedores','Mini-Graficos'])
 with aba1:
     st.dataframe(df)
 with aba2:
@@ -37,4 +37,21 @@ with aba3:
         st.plotly_chart(grafico_rec_vendedores)
     with coluna2:
         st.plotly_chart(grafico_vendas_vendedores)
+with aba4:
+    st.dataframe(
+    df1,
+    column_config={
+        "name": "App name",
+        "stars": st.column_config.NumberColumn(
+            "Github Stars",
+            help="Number of stars on GitHub",
+            format="%d ⭐",
+        ),
+        "url": st.column_config.LinkColumn("App URL"),
+        "views_history": st.column_config.LineChartColumn(
+            "Views (past 30 days)", y_min=0, y_max=5000
+        ),
+    },
+    hide_index=True,
+)
     
